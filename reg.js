@@ -13,8 +13,8 @@ const userReg = function (email, password, role, delete_at, is_enable) {
                 if (err) {
                     throw err
                 } else {
-                    const insertUser = `INSERT INTO users(id,email,password,role,deleted_at, is_enabled) 
-                        VALUES(NULL,'${email}', '${hash}', '${role}', ${delete_at}, ${is_enable})`;
+                    const insertUser = `INSERT INTO users(email,password,role,deleted_at, is_enabled) 
+                        VALUES('${email}', '${hash}', '${role}', ${delete_at}, ${is_enable})`;
                     runQ(insertUser)
                 }
             })
