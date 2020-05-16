@@ -3,11 +3,16 @@ const mysql = require("mysql")
 const bcrypt = require("bcrypt")
 const user = require("./reg.js")
 const app = express()
+const bodyparser = require('body-parser');
+
+app.use(bodyparser.urlencoded({ extended: true }));
+
 
 app.post('/register', (req,res)=>{
-  const reg = user('tom@','mypass1234','admin',0.00,0.00)
+  
+   const reg = user(req.body.email,req.body.password,req.body.role,req.body.deleted_at,req.body.is_enabled)
 
-  res.send("User registered successfully")
+  res.send("User registered successfully") 
 
 });
 
