@@ -10,9 +10,10 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 app.post('/register', (req,res)=>{
   
+  
    const reg = user(req.body.email,req.body.password,req.body.role,req.body.deleted_at,req.body.is_enabled)
 
-  res.send("User registered successfully") 
+  res.send(reg) 
 
 });
 

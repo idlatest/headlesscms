@@ -1,34 +1,23 @@
 
 const mysql = require("mysql")
 
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root"
+})
 
-function RunQuery(query) {
-    const con = mysql.createConnection({
-        host: "localhost",
-        user: "root"
-    })
-    
-    con.connect(function (error) {
-        if (error) {
-            console.log(error)
-        } else {
-            console.log("connected")
-        }
-    })
-    
-    const connect = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "cmsdb"
-    })
+con.connect(function (error) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log("connected")
+    }
+})
 
-    connect.query(query, (error,result) => {
-        if(error){
-            console.log(error)
-        } else {
-            console.log("success ")
-        }
-    })
-}
+const connect = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: "cmsdb"
+})
 
-module.exports = RunQuery;
+module.exports = connect;
