@@ -29,19 +29,12 @@ router.post('/login', async (req, res) => {
       return res.status(400).send('Invalid credential')
     }
 
-    
-    
-
-    // if (data.password != user.password) {
-    //   return res.status(400).send("Invalid credential")
-    // }
-
     bcrypt.compare(data.password, user[0].password)
       .then(validPass => {
         if (!validPass) {
           return res.status(400).send("Invalid credential")
         }
-      }).catch(err => {})
+      }).catch(err => { })
 
     const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET)
 
