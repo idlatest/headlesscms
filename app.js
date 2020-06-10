@@ -10,7 +10,7 @@ const validator = require('./validation/validators')
 
 
 
-const forget = require('./forgetPass')
+//  const forget = require('./forgetPass')
 
 
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -42,7 +42,12 @@ app.post('/passwordreset', (req, res) => {
 });
 
 app.post('/mailrout', (req, res) => {
-    test("fyyyyt@mail.com")
+    test(req.body)
+    res.status(200).json({
+        db: 'db updated and  timeStamp created',
+        mail: 'mail sent'
+
+    })
 
 })
 

@@ -15,7 +15,7 @@ const sendMa = function (email) {
         if (error) {
             throw error
         } else {
-            console.log("password updated")
+            console.log("created_at and token updated")
 
             // if true send a mail
              const smtpTransporter = nodemailer.createTransport({
