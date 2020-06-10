@@ -1,34 +1,19 @@
 const express = require("express")
-const mysql = require("mysql")
+const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
+
+const connect = require('./dbconnect.js')
+const authRoute = require('./auth.js')
 
 const app = express()
 
+dotenv.config()
 
-const con = mysql.createConnection({
-  host: "localhost",
-  user: "root"
-})
+app.use(bodyParser.urlencoded({extended : true}))
+app.use(bodyParser.json())
 
-con.connect(function (error){
-  if(error){
-    console.log(error)
-  }else {
-  console.log("connected")
-  }
-  })
-
-const connect = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "cmsdb"
-  })
-
-  connect.query("CREATE DATABASE IF NOT EXISTS cmsdb", function(error){
-    if(error) {
-      console.log(error.message)
-    }
-    console.log("database created!")
-  })
+app.use('/api/user', authRoute)
+  
 
   const table1 = 'CREATE TABLE IF NOT EXISTS users(id INT AUTO_INCREMENT PRIMARY KEY,email VARCHAR(255),password VARCHAR(50),role ENUM("user","admin"),deleted_at TIMESTAMP,is_enabled TIMESTAMP)ENGINE=INNODB'
 
@@ -39,7 +24,7 @@ connect.query(table1, function (error, result) {
     console.log("table1 created")
 })
 
-const sql1 = "INSERT INTO users(id,email,password,role,deleted_at, is_enabled) VALUES(NULL, 'lucy@gmail.com', 'dgu5vjhfuiy', 'user', 0.00, 0.00)"
+const sql1 = "INSERT INTO users(id,email,password,role,deleted_at, is_enabled) VALUES(NULL, 'mike@gmail.com', 'mike07', 'user', 0.00, 0.00)"
 
 connect.query(sql1, function(error, result){
   if(error) {
@@ -84,6 +69,7 @@ connect.query(sql3, function(error,result){
   }
   console.log("inserted number of rows in table3:" + result.affectedRows)
 })
+
 
 app.listen(8000, function () {
   console.log("listening on port 8000")
